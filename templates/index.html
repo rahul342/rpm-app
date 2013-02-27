@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+	<title> Home Page </title>
+	<link rel="stylesheet" type="text/css" href="http://code.jquery.com/mobile/latest/jquery.mobile.min.css" />
+	<link rel="stylesheet" type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.min.css" /> 
+
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script> 
+	<script type="text/javascript" src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
+
+	<!--
+	<script type="text/javascript" src="PATH/TO/YOUR/COPY/OF/jquery.mousewheel.min.js"></script>
+	-->
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.core.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.calbox.min.js"></script>
+	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/i18n/jquery.mobile.datebox.i18n.en_US.utf8.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+</head>
+
+<body>
+<div id="home" data-role="page">
+    <div id="content" data-role="content">
+      <div id="mainContent">
+			<ul data-role="listview" data-inset="true">
+				<li><a href="#videocall"><img src="/static/img/video_call1.png"/><h1>Call Doctor's Office</h1></a></li>
+				<li><a href="#charts"><img src="/static/img/charts1.png"/><h1>Charts</h1></a></li>
+				<li><a href="#messages"><img src="/static/img/messages1.png"/><h1>Messages</h1></a></li>
+				<li><a href="#settings"><img src="/static/img/settings1.png"/><h1>Settings</h1></a></li>
+				<li><a href="#journal_1"><img src="/static/img/sleep_journal1.png"/><h1>Sleep Journal</h1></a></li>
+				<li><a href="#contacts"><img src="/static/img/contacts1.png"/><h1>Contacts</h1></a></li>
+				<li><a href="#sessions"><img src="/static/img/sessions1.png"/><h1>Sessions</h1></a></li>
+			</ul>
+      </div> <!-- end of mainContent -->  
+	<br/><br/><br/>
+		<div id="footer" data-role="footer">
+		<nav data-role="navbar">
+            <ul>
+                <li><a href="#alert" data-icon="alert" >ALERT</a></li>             
+            </ul>
+		</nav>
+		</div>
+    </div> <!-- end of content -->
+</div> <!-- end of home page -->
+
+<div id="journal" data-role="page">
+    <div id="header" data-role="header">
+		<div id="mainMenu">
+		<nav data-role="navbar">
+            <ul>
+                <li><a href="#home" data-icon="home" class="current">HOME</a></li>
+                <li><a href="#home" data-icon="arrow-l" >BACK</a></li>   
+                <li><a href="#home" data-icon="arrow-r" >NEXT</a></li>            
+            </ul>
+		</nav>
+        </div> <!-- end of mainMenu -->
+    </div> <!-- end of header -->
+    
+    <div id="content" data-role="content">
+      <div id="mainContent">
+            <h1>I am</h1>           
+            <p>	
+				<a href="#journal_1"><img src="/static/img/caregiver.png" width="200" height="150" hspace="40" /></a>
+				<a href="#journal_veteran"><img src="/static/img/veteran.png" alt="" width="200" height="150" hspace="40" longdesc="images/VETERAN.png" /></a>
+				<a href="#journal_caregiver_for_veteran"><img src="/static/img/caregiver_for_veteran.png" alt="" width="200" height="150" hspace="40" longdesc="images/caregiver for veteran.png" /></a>
+			</p>
+      </div> <!-- end of mainContent -->
+    </div> <!-- end of content -->
+</div> <!-- end of journal page -->
+
+<div id="journal_1" data-role="page">    
+    <div id="content" data-role="content">
+      <div id="mainContent">
+            <p>Did you sleep well last night?</p>
+			<div data-role="controlgroup" data-type="horizontal">
+				<a href="#journal_2" value="yes" data-role="button">Yes</a>
+				<a href="#journal_2" value="no" data-role="button">No</a>
+			</div>
+      </div> <!-- end of mainContent -->
+    </div> <!-- end of content -->
+</div> <!-- end of journal page -->
+
+<div id="journal_2" data-role="page">    
+    <div id="content" data-role="content">
+      <div id="mainContent">
+            <p>What time did you get out of bed this morning?</p>
+			<p>(Show time picker here)</p>
+			<div data-role="controlgroup" data-type="horizontal">
+				<a href="#home" value="next" data-role="button">Next</a>
+				<a href="callto:6789257825">Test</a>
+			</div>
+      </div> <!-- end of mainContent -->
+    </div> <!-- end of content -->
+</div> <!-- end of journal page -->
+
+<div id="videocall" data-role="page">
+    <div id="header" data-role="header">
+		<div id="mainMenu">
+		<nav data-role="navbar">
+            <ul> 
+                <li><a href="#home" data-icon="home" >HOME</a></li>
+                <li><a href="#home" data-icon="arrow-l" >BACK</a></li>   
+                <li><a href="#home" data-icon="arrow-r" >NEXT</a></li>            
+            </ul>
+		</nav>
+        </div> <!-- end of mainMenu -->
+    </div> <!-- end of header -->
+  
+    <div id="content" data-role="content">
+		<img src="/static/img/doctor.png"/>
+      <div id="mainContent" data-role="controlgroup" data-type="horizontal">		
+			<a href="#home" > <img src="/static/img/videocall_icon.png"/></a>
+			<a href="#home" > <img src="/static/img/voicecall_icon.png"/></a>
+      </div> <!-- end of mainContent -->
+    </div> <!-- end of content -->
+</div> <!-- end of videocall page -->
+
+<div id="charts" data-role="page">
+    <div id="header" data-role="header">
+		<div id="mainMenu">
+		<nav data-role="navbar">
+            <ul> 
+                <li><a href="#home" data-icon="home" >HOME</a></li>
+                <li><a href="#home" data-icon="arrow-l" >BACK</a></li>   
+                <li><a href="#home" data-icon="arrow-r" >NEXT</a></li>            
+            </ul>
+		</nav>
+        </div> <!-- end of mainMenu -->
+    </div> <!-- end of header -->
+  
+    <div id="content" data-role="content">
+      <div id="mainContent">
+		<p>Charts Sample Page</p>
+		<h1>Welcome Suzanne!</h1>
+			<p>
+			<img src="/static/img/photo.png" width="300" height="200" /> <br/>
+			October 9. 2013 <br/>
+			Atlanta, Ga <br/>
+            Sunny 80F
+			</p>
+      </div> <!-- end of mainContent -->
+    </div> <!-- end of content -->
+</div> <!-- end of videocall page -->
+
+<div id="messages" data-role="page">
+    <div id="header" data-role="header">
+		<div id="mainMenu">
+		<nav data-role="navbar">
+            <ul> 
+                <li><a href="#home" data-icon="home" >HOME</a></li>
+                <li><a href="#home" data-icon="arrow-l" >BACK</a></li>   
+                <li><a href="#home" data-icon="arrow-r" >NEXT</a></li>            
+            </ul>
+		</nav>
+        </div> <!-- end of mainMenu -->
+    </div> <!-- end of header -->
+  
+    <div id="content" data-role="content">
+      <div id="mainContent">
+		<p>Messages Sample Page</p>
+      </div> <!-- end of mainContent -->
+    </div> <!-- end of content -->
+</div> <!-- end of videocall page -->
+
+<div id="settings" data-role="page">
+    <div id="header" data-role="header">
+		<div id="mainMenu">
+		<nav data-role="navbar">
+            <ul> 
+                <li><a href="#home" data-icon="home" >HOME</a></li>
+                <li><a href="#home" data-icon="arrow-l" >BACK</a></li>   
+                <li><a href="#home" data-icon="arrow-r" >NEXT</a></li>            
+            </ul>
+		</nav>
+        </div> <!-- end of mainMenu -->
+    </div> <!-- end of header -->
+  
+    <div id="content" data-role="content">
+      <div id="mainContent">
+		<p>Settings Sample Page</p>
+      </div> <!-- end of mainContent -->
+    </div> <!-- end of content -->
+</div> <!-- end of videocall page -->
+
+<div id="contacts" data-role="page">
+    <div id="header" data-role="header">
+		<div id="mainMenu">
+		<nav data-role="navbar">
+            <ul> 
+                <li><a href="#home" data-icon="home" >HOME</a></li>
+                <li><a href="#home" data-icon="arrow-l" >BACK</a></li>   
+                <li><a href="#home" data-icon="arrow-r" >NEXT</a></li>            
+            </ul>
+		</nav>
+        </div> <!-- end of mainMenu -->
+    </div> <!-- end of header -->
+  
+    <div id="content" data-role="content">
+      <div id="mainContent">
+		<p>Contacts Sample Page</p>
+      </div> <!-- end of mainContent -->
+    </div> <!-- end of content -->
+</div> <!-- end of videocall page -->
+
+<div id="sessions" data-role="page">
+    <div id="header" data-role="header">
+		<div id="mainMenu">
+		<nav data-role="navbar">
+            <ul> 
+                <li><a href="#home" data-icon="home" >HOME</a></li>
+                <li><a href="#home" data-icon="arrow-l" >BACK</a></li>   
+                <li><a href="#home" data-icon="arrow-r" >NEXT</a></li>            
+            </ul>
+		</nav>
+        </div> <!-- end of mainMenu -->
+    </div> <!-- end of header -->
+  
+    <div id="content" data-role="content">
+      <div id="mainContent">
+		<p>Sessions Sample Page</p>
+      </div> <!-- end of mainContent -->
+    </div> <!-- end of content -->
+</div> <!-- end of videocall page -->
+
+<div id="alert" data-role="page">
+    <div id="header" data-role="header">
+		<div id="mainMenu">
+		<nav data-role="navbar">
+            <ul> 
+                <li><a href="#home" data-icon="home" >HOME</a></li>
+                <li><a href="#home" data-icon="arrow-l" >BACK</a></li>   
+                <li><a href="#home" data-icon="arrow-r" >NEXT</a></li>            
+            </ul>
+		</nav>
+        </div> <!-- end of mainMenu -->
+    </div> <!-- end of header -->
+  
+    <div id="content" data-role="content">
+      <div id="mainContent">
+		<p>This is the Alert Page. We should ask the user if they meant to hit the alert button and if so, call 911</p>
+		<div data-role="controlgroup" 
+      </div> <!-- end of mainContent -->
+    </div> <!-- end of content -->
+</div> <!-- end of videocall page -->
+
+
+</body>
+</html>
+
