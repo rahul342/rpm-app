@@ -8,6 +8,8 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'rpm.views.home', name='home'),
+    url(r'^login$', 'rpm.views.login', name='login'),
+    url(r'^signup$', 'rpm.views.signup', name='signup'),
     # url(r'^mas/', include('mas.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:

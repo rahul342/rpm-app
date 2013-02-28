@@ -1,0 +1,95 @@
+<!DOCTYPE html> 
+<html> 
+	<head> 
+	<title>Login</title> 
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a4.1/jquery.mobile-1.0a4.1.min.css" />
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.5.2.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/mobile/1.0a4.1/jquery.mobile-1.0a4.1.min.js"></script>
+	<script type="text/javascript" src="http://jzaefferer.github.com/jquery-validation/jquery.validate.js"></script>
+	<script>
+		$(document).ready(function(){
+		    $("#login_form").validate();
+		    $("#signup_form").validate();
+		    $.validator.addMethod("passmatch", function(value) {
+				return value == $("#signup_password1").val();
+			}, 'Passwords do not match.');
+	  });
+  	</script>
+  <!-- 	<style type="text/css">
+	  	label.error { 
+			float: left; 
+			padding-top: .5em; 
+			vertical-align: top; 
+			font-weight:bold
+		}
+	</style> -->
+</head> 
+<body> 
+
+<div id='login' data-role="page">
+
+	<div data-role="header">
+		<h1>Login</h1>
+	</div><!-- /header -->
+	
+	<div data-role="content">	
+		{% if login_msg %}
+			<span>{{login_msg}}</span>
+		{% endif %}
+	
+		<form action="login" data-ajax="false" method="post" id='login_form'>
+			<div data-role="fieldcontain">
+		         <label for="email">Email:</label>
+		         <input type="email" name="email" id="login_email" class="required" value="" />
+			</div>
+			
+			<div data-role="fieldcontain">
+			    <label for="password">Password:</label>
+			    <input type="password" name="password" id="login_password" class="required" value="" />
+			</div>	
+			<button type="submit" data-theme="a" name="submit" value="submit-value" class="ui-btn-hidden" aria-disabled="false">Login</button>
+		</form>
+		<a href="#signup" data-role="button">Sign up</a>
+	</div><!-- /content -->
+
+</div><!-- /page -->
+
+<div id='signup' data-role="page">
+
+	<div data-role="header">
+		<h1>Sign up</h1>
+	</div><!-- /header -->
+
+	<div data-role="content">
+		{% if signup_msg %}
+			<span>{{signup_msg}}</span>
+		{% endif %}	
+		<form action="signup" data-ajax="false" method="post" id='signup_form'>
+			<div data-role="fieldcontain">
+	         	<label for="name">Name:</label>
+	         	<input type="text" name="name" id="signup_name" class="required" value="" />
+			</div>
+		
+			<div data-role="fieldcontain">
+		         <label for="email">Email:</label>
+		         <input type="email" name="email" id="signup_email" class="required" value="" />
+			</div>
+			
+			<div data-role="fieldcontain">
+			    <label for="password1">Password:</label>
+			    <input type="password" name="password1" id="signup_password1" class="required" value="" />
+			</div>	
+			
+			<div data-role="fieldcontain">
+			    <label for="password2">Confirm Password:</label>
+			    <input type="password" name="password2" id="signup_password2" class="passmatch required" value="" />
+			</div>	
+			<button type="submit" data-theme="a" name="submit" value="submit-value" class="ui-btn-hidden" aria-disabled="false">Submit</button>
+		</form>
+		<a href="#login" data-transition="slide" data-direction="reverse" data-role="button">Back to Login</a>
+	</div><!-- /content -->
+
+</div>
+
+</body>
+</html>
