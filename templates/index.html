@@ -65,12 +65,6 @@
 </head>
 
 <body>
-<a href="#popupLogin" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-icon="check" data-theme="a" data-transition="pop">Sign in</a>
-<div data-role="popup" id="popupMenu" data-theme="a">
-    <div data-role="popup" id="popupLogin" data-theme="a" class="ui-corner-all">
-
-    </div>
-</div>
 <div id="home" data-role="page">
     <div id="content" data-role="content">
       <div id="mainContent">
@@ -330,21 +324,34 @@
 
 <div id="settings" data-role="page">
     <div id="header" data-role="header">
-		<div id="mainMenu">
 		<nav data-role="navbar">
             <ul> 
                 <li><a href="#home" data-icon="home" >HOME</a></li>
                 <li><a href="#home" data-icon="arrow-l" >BACK</a></li>   
-                <li><a href="#home" data-icon="arrow-r" >NEXT</a></li>            
             </ul>
 		</nav>
-        </div> <!-- end of mainMenu -->
     </div> <!-- end of header -->
   
     <div id="content" data-role="content">
-      <div id="mainContent">
 		<p>Settings Sample Page</p>
-      </div> <!-- end of mainContent -->
+		
+		<ul data-role="listview" data-inset="true">
+			<li>
+				<label for="setting_name">Name: </input>
+				<input id="setting_name" type="text" value="" data-inset="true"/>
+			</li>
+			<li>
+				<label for="setting_time">Preferred Time: </input>
+				<input id="setting_time" type="time" value="" data-inset="true"/>
+			</li>
+			<li>
+				<div data-role="controlgroup" data-type="horizontal">
+					<button id="setting_save">Save Settings</button>
+					<button id="setting_clear">Clear Settings</button>
+				</div>
+			</li>
+		</ul>
+		<p id="test_setting"></p>
     </div> <!-- end of content -->
 </div> <!-- end of videocall page -->
 
@@ -390,25 +397,25 @@
 
 <div id="alert" data-role="page">
     <div id="header" data-role="header">
-		<div id="mainMenu">
 		<nav data-role="navbar">
             <ul> 
                 <li><a href="#home" data-icon="home" >HOME</a></li>
                 <li><a href="#home" data-icon="arrow-l" >BACK</a></li>   
-                <li><a href="#home" data-icon="arrow-r" >NEXT</a></li>            
             </ul>
 		</nav>
-        </div> <!-- end of mainMenu -->
     </div> <!-- end of header -->
   
     <div id="content" data-role="content">
       <div id="mainContent">
-		<p>This is the Alert Page. We should ask the user if they meant to hit the alert button and if so, call 911</p>
-		<div data-role="controlgroup" 
+		<p>If you click the button below, we will initiate a call to 911</p>
+		<br/>
+		<br/>
+		<div data-role="controlgroup" data-type="horizontal">
+			<a href="callto:6789257825" data-role="button" data-theme="e" >CALL 911</a>
+		</div>
       </div> <!-- end of mainContent -->
     </div> <!-- end of content -->
 </div> <!-- end of videocall page -->
-
 
 </body>
 </html>
