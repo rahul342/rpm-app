@@ -39,12 +39,12 @@
 	
 		<form action="login" data-ajax="false" method="post" id='login_form'>
 			<div data-role="fieldcontain">
-		         <label for="email">Email:</label>
+		         <label for="login_email">Email:</label>
 		         <input type="email" name="email" id="login_email" class="required" value="" />
 			</div>
 			
 			<div data-role="fieldcontain">
-			    <label for="password">Password:</label>
+			    <label for="login_password">Password:</label>
 			    <input type="password" name="password" id="login_password" class="required" value="" />
 			</div>	
 			<button type="submit" data-theme="a" name="submit" value="submit-value" class="ui-btn-hidden" aria-disabled="false">Login</button>
@@ -65,23 +65,23 @@
 			<span>{{signup_msg}}</span>
 		{% endif %}	
 		<form action="signup" data-ajax="false" method="post" id='signup_form'>
-			<div data-role="fieldcontain">
-	         	<label for="signup_name" class="ui-hidden-accessible">Name:</label>
+			<div data-role="fieldcontain" class="ui-hide-label">
+	         	<label for="signup_name">Name:</label>
 	         	<input type="text" name="name" id="signup_name" class="required" value="" placeholder="Name"/>
 			</div>
 		
-			<div data-role="fieldcontain">
-		         <label for="signup_email" class="ui-hidden-accessible">Email:</label>
+			<div data-role="fieldcontain" class="ui-hide-label">
+		         <label for="signup_email">Email:</label>
 		         <input type="email" name="email" id="signup_email" class="required" value="" placeholder="Email"/>
 			</div>
 			
-			<div data-role="fieldcontain">
-			    <label for="signup_password1" class="ui-hidden-accessible">Password:</label>
+			<div data-role="fieldcontain" class="ui-hide-label">
+			    <label for="signup_password1">Password:</label>
 			    <input type="password" name="password1" id="signup_password1" class="required" value="" placeholder="Password"/>
 			</div>	
 			
-			<div data-role="fieldcontain">
-			    <label for="signup_password2" class="ui-hidden-accessible">Confirm Password:</label>
+			<div data-role="fieldcontain" class="ui-hide-label">
+			    <label for="signup_password2">Confirm Password:</label>
 			    <input type="password" name="password2" id="signup_password2" class="passmatch required" value="" placeholder="Confirm Password"/>
 			</div>	
 			<button type="submit" data-theme="a" name="submit" value="submit-value" class="ui-btn-hidden" aria-disabled="false">Submit</button>

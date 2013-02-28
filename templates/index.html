@@ -4,32 +4,85 @@
     <meta charset="utf-8" />
 	<title> Home Page </title>
 	<link rel="stylesheet" type="text/css" href="http://code.jquery.com/mobile/latest/jquery.mobile.min.css" />
-	<link rel="stylesheet" type="text/css" href="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.min.css" /> 
 
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script> 
 	<script type="text/javascript" src="http://code.jquery.com/mobile/latest/jquery.mobile.min.js"></script>
 
-	<!--
-	<script type="text/javascript" src="PATH/TO/YOUR/COPY/OF/jquery.mousewheel.min.js"></script>
-	-->
-	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.core.min.js"></script>
-	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.calbox.min.js"></script>
-	<script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/i18n/jquery.mobile.datebox.i18n.en_US.utf8.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<style type="text/css">
+		#videocall #content {
+			position: fixed;
+			height: 400px;
+			width: 320px;
+			left: 0px;
+			top: 0px;
+			right: 0px;
+		}
+	</style>
+	
+	<script>
+	$(document).ready(function(){
+		$(".journal_forms").live('submit', function (e) {
+			//prevent the default submission of the form
+	    	e.preventDefault();
+	
+	    	//cache the form element for use in this function
+	    	var $this = $(this);
+	    	var cur_form_num = $this.attr('id').split("_")[2];
+	    	var error_p = $("#journal_"+cur_form_num+"_error");
+	    	
+	    	//Check if the question was answered
+	    	if($this.serialize().indexOf("q"+cur_form_num+"=") == -1) {
+	    		error_p.text("This field is required");
+	    		return;
+	    	} else {
+	    		error_p.text("");
+	    	
+	    	}
+	    	
+	    	$.mobile.showPageLoadingMsg();
+	   		
+	   		$.post($this.attr('action'), $this.serialize(), function (responseData) {
+	   		$.mobile.hidePageLoadingMsg();
+	   		 	if(responseData == "user_not_found") {
+	   		 		window.location.href = "/login";
+	   		 	} 
+	   		 	else if(responseData == "success") {
+	   		 		var next_journal = "#journal_"+ (parseInt(cur_form_num, 10) + 1);
+	   		 		if($(next_journal).length)
+	   		 			$.mobile.changePage(next_journal);
+	   		 		else
+	   		 			$.mobile.changePage("#home");
+	   		 	}
+	   		 	else {
+	   		 		alert("Error in connection. Please try again later");
+	   		 	
+	   		 	}
+	    	});
+		});
+	});
+	</script>
 </head>
 
 <body>
+<a href="#popupLogin" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-icon="check" data-theme="a" data-transition="pop">Sign in</a>
+<div data-role="popup" id="popupMenu" data-theme="a">
+    <div data-role="popup" id="popupLogin" data-theme="a" class="ui-corner-all">
+
+    </div>
+</div>
 <div id="home" data-role="page">
     <div id="content" data-role="content">
       <div id="mainContent">
 			<ul data-role="listview" data-inset="true">
-				<li><a href="#videocall"><img src="/static/img/video_call1.png"/><h1>Call Doctor's Office</h1></a></li>
-				<li><a href="#charts"><img src="/static/img/charts1.png"/><h1>Charts</h1></a></li>
-				<li><a href="#messages"><img src="/static/img/messages1.png"/><h1>Messages</h1></a></li>
-				<li><a href="#settings"><img src="/static/img/settings1.png"/><h1>Settings</h1></a></li>
-				<li><a href="#journal_1"><img src="/static/img/sleep_journal1.png"/><h1>Sleep Journal</h1></a></li>
-				<li><a href="#contacts"><img src="/static/img/contacts1.png"/><h1>Contacts</h1></a></li>
-				<li><a href="#sessions"><img src="/static/img/sessions1.png"/><h1>Sessions</h1></a></li>
+				<li><a href="#videocall"><img src="/static/img/video_call1.png" width="70" height="50"/><h1>Call Doctor's Office</h1></a></li>
+				<li><a href="#charts"><img src="/static/img/charts1.png" width="70" height="50"/><h1>Charts</h1></a></li>
+				<li><a href="#messages"><img src="/static/img/messages1.png" width="70" height="50"/><h1>Messages</h1></a></li>
+				<li><a href="#settings"><img src="/static/img/settings1.png" width="70" height="65"/><h1>Settings</h1></a></li>
+				<li><a href="#journal_1"><img src="/static/img/sleep_journal1.png" width="70"/><h1>Sleep Journal</h1></a></li>
+				<li><a href="#contacts"><img src="/static/img/contacts1.png" height="70"/><h1>Contacts</h1></a></li>
+				<li><a href="#sessions"><img src="/static/img/sessions1.png" width="50" height="70" alt="sessions" longdesc="/static/img/sessions1.png">
+			    <h1>Sessions</h1></a></li>
 			</ul>
       </div> <!-- end of mainContent -->  
 	<br/><br/><br/>
@@ -61,37 +114,105 @@
             <h1>I am</h1>           
             <p>	
 				<a href="#journal_1"><img src="/static/img/caregiver.png" width="200" height="150" hspace="40" /></a>
-				<a href="#journal_veteran"><img src="/static/img/veteran.png" alt="" width="200" height="150" hspace="40" longdesc="images/VETERAN.png" /></a>
-				<a href="#journal_caregiver_for_veteran"><img src="/static/img/caregiver_for_veteran.png" alt="" width="200" height="150" hspace="40" longdesc="images/caregiver for veteran.png" /></a>
+				<a href="#journal_veteran"><img src="/static/img/veteran.png" alt="" width="200" height="150" hspace="40" longdesc="/static/img/VETERAN.png" /></a>
+				<a href="#journal_caregiver_for_veteran"><img src="/static/img/caregiver_for_veteran.png" alt="" width="200" height="150" hspace="40" longdesc="/static/img/caregiver_for_veteran.png" /></a>
 			</p>
       </div> <!-- end of mainContent -->
     </div> <!-- end of content -->
 </div> <!-- end of journal page -->
 
 <div id="journal_1" data-role="page">    
+	<div id="header" data-role="header">
+		<nav data-role="navbar">
+            <ul>
+                <li><a href="#home" data-icon="home" class="current">HOME</a></li>
+                <li><a href="#home" data-icon="arrow-l" >BACK</a></li>   
+            </ul>
+		</nav>
+    </div> <!-- end of header -->
+    
     <div id="content" data-role="content">
-      <div id="mainContent">
-            <p>Did you sleep well last night?</p>
-			<div data-role="controlgroup" data-type="horizontal">
-				<a href="#journal_2" value="yes" data-role="button">Yes</a>
-				<a href="#journal_2" value="no" data-role="button">No</a>
+    	<p id="journal_1_error"></p>
+    	<form action="save_sleep_journal" data-ajax="false" method="post" id='form_journal_1' class="journal_forms">
+    		<input type="hidden" name="ques_num" value="q1">
+    		<div data-role="fieldcontain">
+			    <fieldset data-role="controlgroup" data-type="horizontal" >
+			    	<legend><strong>Did you sleep well last night?</strong></legend>
+			         	<input type="radio" name="q1" id="radio-choice-21" value="yes" />
+			         	<label for="radio-choice-21">Yes</label>
+			
+			         	<input type="radio" name="q1" id="radio-choice-22" value="no"  />
+			         	<label for="radio-choice-22">No</label>
+			    </fieldset>
 			</div>
-      </div> <!-- end of mainContent -->
+			<button type="submit" data-theme="a" name="submit" value="submit-value" class="ui-btn-hidden" aria-disabled="false">Next</button>
+		</form>
     </div> <!-- end of content -->
 </div> <!-- end of journal page -->
 
 <div id="journal_2" data-role="page">    
+	<div id="header" data-role="header">
+		<nav data-role="navbar">
+            <ul>
+                <li><a href="#home" data-icon="home" class="current">HOME</a></li>
+                <li><a href="#journal_1" data-icon="arrow-l" >BACK</a></li>   
+            </ul>
+		</nav>
+    </div> <!-- end of header -->
+    
     <div id="content" data-role="content">
-      <div id="mainContent">
-            <p>What time did you get out of bed this morning?</p>
-			<p>(Show time picker here)</p>
-			<div data-role="controlgroup" data-type="horizontal">
-				<a href="#home" value="next" data-role="button">Next</a>
-				<a href="callto:6789257825">Test</a>
+    	<p id="journal_2_error"></p>
+    	<form action="save_sleep_journal" data-ajax="false" method="post" id='form_journal_2' class="journal_forms">
+    		<input type="hidden" name="ques_num" value="q2">
+			<p>What time did you get out of bed this morning?</p>
+    		<div data-role="fieldcontain">
+           			<label for="slider-fill">12AM to 10AM:</label>
+					<input name="q2" id="slider-fill" value="10" min="0" max="10" step="1" data-highlight="true" type="range">
 			</div>
-      </div> <!-- end of mainContent -->
+			<button type="submit" data-theme="a" name="submit" value="submit-value" class="ui-btn-hidden" aria-disabled="false">Next</button>
+		</form>
     </div> <!-- end of content -->
 </div> <!-- end of journal page -->
+
+<div id="journal_3" data-role="page">    
+	
+	<div id="header" data-role="header">
+		<nav data-role="navbar">
+            <ul>
+                <li><a href="#home" data-icon="home" class="current">HOME</a></li>
+                <li><a href="#journal_2" data-icon="arrow-l" >BACK</a></li>   
+            </ul>
+		</nav>
+    </div> <!-- end of header -->
+    <div id="content" data-role="content">
+    	<p id="journal_3_error"></p>
+    	<form action="save_sleep_journal" data-ajax="false" method="post" id='form_journal_3' class="journal_forms">
+    		<input type="hidden" name="ques_num" value="q3">
+			<p>Please, rate your sleep quality.</p>
+            <p>1 - I didn NOT sleep well at all.	5 - I slept GREAT!</p>
+            <div data-role="fieldcontain">
+	            <fieldset data-role="controlgroup" data-type="horizontal" >
+		         	<input type="radio" name="q3" id="radio-choice-31" value="1" />
+		         	<label for="radio-choice-31">1</label>
+		
+		         	<input type="radio" name="q3" id="radio-choice-32" value="2"  />
+		         	<label for="radio-choice-32">2</label>
+		         	
+		         	<input type="radio" name="q3" id="radio-choice-33" value="3" />
+		         	<label for="radio-choice-33">3</label>
+		
+		         	<input type="radio" name="q3" id="radio-choice-34" value="4"  />
+		         	<label for="radio-choice-34">4</label>
+		         	
+		         	<input type="radio" name="q3" id="radio-choice-35" value="5"  />
+		         	<label for="radio-choice-35">5</label>
+				 </fieldset>
+			</div>
+			<button type="submit" data-theme="a" name="submit" value="submit-value" class="ui-btn-hidden" aria-disabled="false">Finish</button>
+		</form>
+    </div> <!-- end of content -->
+</div> <!-- end of journal page -->
+
 
 <div id="videocall" data-role="page">
     <div id="header" data-role="header">
@@ -107,10 +228,12 @@
     </div> <!-- end of header -->
   
     <div id="content" data-role="content">
-		<img src="/static/img/doctor.png"/>
-      <div id="mainContent" data-role="controlgroup" data-type="horizontal">		
-			<a href="#home" > <img src="/static/img/videocall_icon.png"/></a>
-			<a href="#home" > <img src="/static/img/voicecall_icon.png"/></a>
+		<img src="/static/img/doctor.png" width="320" height="400"/>
+      <div id="mainContent" data-role="controlgroup" data-type="horizontal">
+        <p>
+    <a href="#" data-role="button" data-mini="true" data-inline="true">CANCEL</a>
+    <a href="callto:6789257825" data-role="button" data-mini="true" data-inline="true" data-icon="" data-theme="b">VIDEO CALL</a>
+    <a href="callto:6789257825" data-role="button" data-mini="true" data-inline="true" data-icon="" data-theme="b">VOICE CALL</a>
       </div> <!-- end of mainContent -->
     </div> <!-- end of content -->
 </div> <!-- end of videocall page -->
@@ -157,7 +280,50 @@
   
     <div id="content" data-role="content">
       <div id="mainContent">
-		<p>Messages Sample Page</p>
+		<div data-role="header"data-fullscreen="true" data-theme="b">
+    <a href="#" data-icon="edit">Edit</a>
+    <h1>Messages</h1>
+    <a href="#" data-icon="bars">Write</a>
+</div>
+<ul data-role="listview" data-inset="true" data-filter="true" data-theme="d" data-divider-theme="d" data-icon="false" data-filter-placeholder="Search..." data-global-nav="docs" class="jqm-list">
+        	<li data-section="Widgets" data-filtertext="accordions collapsible sets content formatting grouped inset mini"><a href="message_1">Ana</a></li>
+
+<li data-section="Widgets" data-filtertext="ajax navigation navigate event method"><a href="widgets/navigation/" data-ajax="false">Sara</a></li>
+
+<li data-section="Widgets" data-filtertext="autocomplete filter reveal listviews remote listviewbeforefilter placeholder"><a href="widgets/autocomplete/" data-ajax="false">Lori</a></li>
+
+<li data-section="Widgets" data-filtertext="buttons inputs forms inline theme grouped icons mini disabled"><a href="widgets/buttons/" data-ajax="false">Bonny</a></li>
+
+<li data-section="Widgets" data-filtertext="checkboxes checkboxradio inputs forms mini disabled"><a href="widgets/checkbox/">Lora</a></li>
+
+<li data-section="Widgets" data-filtertext="collapsibles content formatting"><a href="widgets/collapsibles/"- data-icon="arrow-r" data-ajax="false">Stephanie</a></li>
+
+<li data-section="Widgets" data-filtertext="controlgroups selects checkboxradio buttons horizontal vertical"><a href="widgets/controlgroups/">Kendra</a></li>
+
+<li data-section="Widgets" data-filtertext="dialogs modal popups"><a href="widgets/dialog/">Diana</a></li>
+
+<li data-section="Widgets" data-filtertext="fixed toolbars headers footers sections fullscreen"><a href="widgets/headers/bars-fixed.php">Flora</a></li>
+
+<li data-section="Widgets" data-filtertext="flip toggle switch binary slider selects forms disabled"><a href="widgets/sliders/switch.php" data-ajax="false">Tod</a></li>
+
+<li data-section="Widgets" data-filtertext="footer toolbars footers sections"><a href="widgets/footers/">Sam</a></li>
+
+<li data-section="Widgets" data-filtertext="forms inputs slider button range toggle switch label disabled accessible fieldcontains elements"><a href="widgets/forms/">Adam</a></li>
+
+<li data-section="Widgets" data-filtertext="grids columns blocks content formatting rwd responsive"><a href="widgets/grids/">Helen</a></li>
+
+<li data-section="Widgets" data-filtertext="header toolbars fixed fullscreen sections"><a href="widgets/headers/">Wilma</a></li>
+
+<li data-section="Widgets" data-filtertext="icons buttons disc position"><a href="widgets/icons/">Ivan</a></li>
+
+<li data-section="Widgets" data-filtertext="links navigation ajax prefetch cache"><a href="widgets/links/">Laura</a></li>
+
+<li data-section="Widgets" data-filtertext="listviews thumbnails icons nested split button collapsible ul ol"><a href="widgets/listviews/" data-ajax="false">Stephen</a></li>
+
+<li data-section="Widgets" data-filtertext="ajax loader overlay spinner pages"><a href="widgets/loader/">Melody</a></li></ul>
+
+	</div><!-- /content -->
+
       </div> <!-- end of mainContent -->
     </div> <!-- end of content -->
 </div> <!-- end of videocall page -->

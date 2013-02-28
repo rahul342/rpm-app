@@ -10,6 +10,7 @@ urlpatterns = patterns('',
     url(r'^$', 'rpm.views.home', name='home'),
     url(r'^login$', 'rpm.views.login', name='login'),
     url(r'^signup$', 'rpm.views.signup', name='signup'),
+    url(r'^save_sleep_journal$', 'rpm.views.save_sleep_journal', name='save_sleep_journal'),
     # url(r'^mas/', include('mas.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
