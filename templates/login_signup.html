@@ -66,23 +66,23 @@
 		{% endif %}	
 		<form action="signup" data-ajax="false" method="post" id='signup_form'>
 			<div data-role="fieldcontain">
-	         	<label for="name">Name:</label>
-	         	<input type="text" name="name" id="signup_name" class="required" value="" />
+	         	<label for="signup_name" class="ui-hidden-accessible">Name:</label>
+	         	<input type="text" name="name" id="signup_name" class="required" value="" placeholder="Name"/>
 			</div>
 		
 			<div data-role="fieldcontain">
-		         <label for="email">Email:</label>
-		         <input type="email" name="email" id="signup_email" class="required" value="" />
+		         <label for="signup_email" class="ui-hidden-accessible">Email:</label>
+		         <input type="email" name="email" id="signup_email" class="required" value="" placeholder="Email"/>
 			</div>
 			
 			<div data-role="fieldcontain">
-			    <label for="password1">Password:</label>
-			    <input type="password" name="password1" id="signup_password1" class="required" value="" />
+			    <label for="signup_password1" class="ui-hidden-accessible">Password:</label>
+			    <input type="password" name="password1" id="signup_password1" class="required" value="" placeholder="Password"/>
 			</div>	
 			
 			<div data-role="fieldcontain">
-			    <label for="password2">Confirm Password:</label>
-			    <input type="password" name="password2" id="signup_password2" class="passmatch required" value="" />
+			    <label for="signup_password2" class="ui-hidden-accessible">Confirm Password:</label>
+			    <input type="password" name="password2" id="signup_password2" class="passmatch required" value="" placeholder="Confirm Password"/>
 			</div>	
 			<button type="submit" data-theme="a" name="submit" value="submit-value" class="ui-btn-hidden" aria-disabled="false">Submit</button>
 		</form>
