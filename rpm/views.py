@@ -1,4 +1,4 @@
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, redirect
 from models import SleepJournalEntry
 from django.contrib import auth
 from emailusernames.utils import user_exists
@@ -47,3 +47,7 @@ def save_sleep_journal(request):
             return HttpResponse("user_not_found")
     else:
         raise Http404()
+    
+def logout(request):
+    auth.logout(request)
+    return redirect('/')

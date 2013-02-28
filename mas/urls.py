@@ -9,6 +9,7 @@ urlpatterns = patterns('',
     # Examples:
     url(r'^$', 'rpm.views.home', name='home'),
     url(r'^login$', 'rpm.views.login', name='login'),
+    url(r'^logout$', 'rpm.views.logout', name='logout'),
     url(r'^signup$', 'rpm.views.signup', name='signup'),
     url(r'^save_sleep_journal$', 'rpm.views.save_sleep_journal', name='save_sleep_journal'),
     # url(r'^mas/', include('mas.foo.urls')),
