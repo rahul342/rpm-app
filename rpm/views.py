@@ -14,11 +14,11 @@ def save_sleep_journal(request):
             q1 =  map(int, request.POST['q1'].split(":"))
             sleep_journal_entry.q1 = time(hour=q1[0], minute=q1[1])
             sleep_journal_entry.q2 = bool(int(request.POST['q2']))
-            sleep_journal_entry.q3 = int(request.POST['q3'])
+            sleep_journal_entry.q3 = int(float(request.POST['q3']))
             sleep_journal_entry.q4 = bool(int(request.POST['q4']))
-            sleep_journal_entry.q5 = int(request.POST['q5'])
+            sleep_journal_entry.q5 = int(float(request.POST['q5']))
             sleep_journal_entry.q6 = bool(int(request.POST['q6']))
-            sleep_journal_entry.q7 = int(request.POST['q7'])
+            sleep_journal_entry.q7 = int(float(request.POST['q7']))
             sleep_journal_entry.save()
         except Exception, e:
             print e
