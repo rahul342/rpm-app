@@ -47,6 +47,20 @@ def save_blood_pressure(request):
         return HttpResponse('success')
     return HttpResponse("error")
 
+def fetch_bp_data(request, limit=None):
+    if request.method == "GET":
+        try:
+            if limit: limit = int(limit)
+            email = request.GET['email']
+            bp_entries = map(lambda x: map(str, x), BloodPressureData.objects.filter(patient__email=email).order_by('-reading_date').values_list("reading_date", 'sys', 'dia', 'pul'))
+            if limit:
+                return HttpResponse(json.dumps(bp_entries[:limit]));
+            else:
+                return HttpResponse(json.dumps(bp_entries));
+        except Exception, e:
+            print e
+    return HttpResponse("error")
+            
 #def home(request):
 #    return render_to_response('login_signup.html')
 #
