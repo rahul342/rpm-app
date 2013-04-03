@@ -9,10 +9,11 @@ def save_sleep_journal(request):
         try:
             email = request.POST['email']
             patient = Patient.objects.get(email=email)
+            print patient
             today_date = date.today()
-            sleep_journal_entry = SleepJournalEntry.get_or_create(patient=patient, record_date = today_date)
-            
-            q1 =  map(int, ":".split(request.POST['q1']))
+            sleep_journal_entry = SleepJournalEntry.objects.get_or_create(patient=patient, record_date = today_date)
+            print dict(request.POST)
+            q1 =  map(int, request.POST['q1'].split(":"))
             sleep_journal_entry.q1 = time(hour=q1[0], minute=q1[1])
             sleep_journal_entry.q2 = bool(int(request.POST['q2']))
             sleep_journal_entry.q3 = int(request.POST['q3'])
@@ -22,6 +23,7 @@ def save_sleep_journal(request):
             sleep_journal_entry.q7 = int(request.POST['q7'])
             sleep_journal_entry.save()
         except Exception, e:
+            print e
             return HttpResponse('error')
         return HttpResponse('success')
     return HttpResponse("error")

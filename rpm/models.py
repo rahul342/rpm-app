@@ -10,7 +10,7 @@ class Patient(models.Model):
     
 
 class SleepJournalEntry(models.Model):
-    patient = models.ManyToManyField(Patient)
+    patient = models.ForeignKey(Patient)
     record_date = models.DateField()
     q1 = models.TimeField(null=True)
     q2 = models.NullBooleanField(null=True)
@@ -21,7 +21,7 @@ class SleepJournalEntry(models.Model):
     q7 = models.PositiveSmallIntegerField(null=True)
     
 class BloodPressureData(models.Model):
-    patient = models.ManyToManyField(Patient)
+    patient = models.ForeignKey(Patient)
     reading_date = models.DateTimeField()
     sys = models.FloatField(null=True)
     dia = models.FloatField(null=True)
