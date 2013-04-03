@@ -2,7 +2,7 @@ from django.shortcuts import render_to_response, redirect
 from models import *
 from django.contrib import auth
 from django.http import Http404, HttpResponse
-from datetime import date, time, datetime
+from datetime import date, time, datetime, timedelta
 import json
 
 def save_sleep_journal(request):
@@ -54,8 +54,9 @@ def fetch_bp_data(request, limit=None):
             email = request.GET['email']
             bp_entries = map(list, BloodPressureData.objects.filter(patient__email=email).order_by('-reading_date').values_list("reading_date", 'sys', 'dia', 'pul'))
             for entry in bp_entries:
-                entry[0] = entry[0].strftime("%d-%m-%Y\n%I:%M:%S %p")
+                entry[0] = (entry[0] - timedelta(hours=4, minutes=20)).strftime("%d-%m-%Y\n%I:%M:%S %p")
             bp_entries = map(lambda x: map(str, x), bp_entries)
+            bp_entries.reverse()
             if limit:
                 return HttpResponse(json.dumps(bp_entries[:limit]));
             else:
