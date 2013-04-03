@@ -2,7 +2,8 @@ from django.shortcuts import render_to_response, redirect
 from models import *
 from django.contrib import auth
 from django.http import Http404, HttpResponse
-from datetime import date, time
+from datetime import date, time, datetime
+import json
 
 def save_sleep_journal(request):
     if request.method == "POST":
@@ -20,6 +21,26 @@ def save_sleep_journal(request):
             sleep_journal_entry.q6 = bool(int(request.POST['q6']))
             sleep_journal_entry.q7 = int(float(request.POST['q7']))
             sleep_journal_entry.save()
+        except Exception, e:
+            print e
+            return HttpResponse('error')
+        return HttpResponse('success')
+    return HttpResponse("error")
+
+def save_blood_pressure(request):
+    if request.method == "POST":
+        try:
+            email = request.POST['email']
+            patient = Patient.objects.get(email=email)
+            for reading_data in json.loads(request.POST['data']):
+                reading_date, reading = reading_data.split("|") 
+                reading_date = datetime(**dict((zip(['year', 'month', 'day', 'hour', 'minute', 'second'], map(int, reading_date.split(":"))))))
+                bp_entry = BloodPressureData.objects.get_or_create(patient=patient, reading_date=reading_date)[0]
+                reading = map(int, reading.split(":"))
+                bp_entry.sys = reading[0]
+                bp_entry.dia = reading[1]
+                bp_entry.pul = reading[2]
+                bp_entry.save()
         except Exception, e:
             print e
             return HttpResponse('error')
