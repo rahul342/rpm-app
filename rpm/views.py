@@ -53,14 +53,14 @@ def fetch_bp_data(request, limit=None):
             if limit: limit = int(limit)
             email = request.GET['email']
             bp_entries = map(list, BloodPressureData.objects.filter(patient__email=email).order_by('-reading_date').values_list("reading_date", 'sys', 'dia', 'pul'))
+            if limit: 
+                bp_entries = bp_entries[:limit]
+
             for entry in bp_entries:
-                entry[0] = (entry[0] - timedelta(hours=4, minutes=20)).strftime("%d-%m-%Y\n%I:%M:%S %p")
+                entry[0] = (entry[0] - timedelta(hours=4, minutes=20)).strftime("%m-%d-%Y\n%I:%M:%S %p")
             bp_entries = map(lambda x: map(str, x), bp_entries)
-            bp_entries.reverse()
-            if limit:
-                return HttpResponse(json.dumps(bp_entries[:limit]));
-            else:
-                return HttpResponse(json.dumps(bp_entries));
+            
+            return HttpResponse(json.dumps(bp_entries));
         except Exception, e:
             print e
     return HttpResponse("error")
