@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>RPM - Doctor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" rel="stylesheet">
+    <!--<link href="./bootstrap.css" rel="stylesheet">-->
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      .sidebar-nav {
+        padding: 9px 0;
+      }
+
+      @media (max-width: 980px) {
+        /* Enable use of floated navbar text */
+        .navbar-text.pull-right {
+          float: none;
+          padding-left: 5px;
+          padding-right: 5px;
+        }
+      }
+    </style>
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script src="http://d3js.org/d3.v3.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+		google.load("visualization", "1", {packages:["corechart"], "callback" : drawCharts});
+		});
+		function drawCharts() {
+			var parseDate = d3.time.format("%m-%d-%Y").parse;
+			$.getJSON("/fetch_bp_data/?email=mailrhl%40gmail.com", function(data){
+				// Create the data table.
+				var sys_data_table = new google.visualization.DataTable();
+				var dia_data_table = new google.visualization.DataTable();
+				var pul_data_table = new google.visualization.DataTable();
+				[sys_data_table, dia_data_table, pul_data_table].forEach(function(data_table) {
+					data_table.addColumn({type:'date',role:'domain'});
+					data_table.addColumn({type:'number',role:'data'});
+					data_table.addColumn({type:'string',role:'tooltip'});
+					data_table.addColumn({type:'number',role:'data'});
+					data_table.addColumn({type:'string',role:'tooltip'});
+				});
+			  
+				data.forEach(function(row) {
+					var d = parseDate(row[0].split('\n')[0]);
+					var sys = +row[1];
+					var dia = +row[2];
+					var pul = +row[3];
+					var tool = row[0].split("\n").join(" ") + "\n" + "SYS: "+row[1] + "\nDIA: "+row[2]+ "\nPUL: "+row[3];
+					if(sys > 135 || sys < 95)
+						sys_data_table.addRow([d, null, null, sys, tool]);
+					else
+						sys_data_table.addRow([d, sys, tool, null, null]);
+						
+					if(dia > 90 || dia < 60)
+						dia_data_table.addRow([d, null, null, dia, tool]);
+					else
+						dia_data_table.addRow([d, dia, tool, null, null]);
+						
+					if(pul > 95|| pul < 60)
+						pul_data_table.addRow([d, null, null, pul, tool]);
+					else
+						pul_data_table.addRow([d, pul, tool, null, null]);				
+				});
+					
+				// Set chart options
+				var optionsSys = {
+					title:'Systolic Readings',
+					hAxis: {title: 'Date'},
+					vAxis: {title: 'Reading'},
+					chartArea:{width:"75%",height:"75%"},
+					legend: {position:'right',alignment:'start'}
+				};
+				
+				var optionsDia = {
+					title:'Diastolic Readings',
+					hAxis: {title: 'Date'},
+					vAxis: {title: 'Reading'},
+					chartArea:{width:"75%",height:"75%"},
+					legend: {position:'right',alignment:'start'}
+				};
+				
+				var optionsPulse = {
+					title:'Pulse Readings',
+					hAxis: {title: 'Date'},
+					vAxis: {title: 'Reading'},
+					chartArea:{width:"75%",height:"75%"},
+					legend: {position:'right',alignment:'start'}
+				};
+				
+				// Instantiate and draw our chart, passing in some options.
+				var chartSys = new google.visualization.ScatterChart(document.getElementById('sysChart'));
+				chartSys.draw(sys_data_table, optionsSys);
+				
+				var chartDia = new google.visualization.ScatterChart(document.getElementById('diaChart'));
+				chartDia.draw(dia_data_table, optionsDia);
+				
+				var chartPulse = new google.visualization.ScatterChart(document.getElementById('pulseChart'));
+				chartPulse.draw(pul_data_table, optionsPulse);
+			});	   
+		}
+     
+    </script>
+    <!--<link href="file:///C|/Users/Ljilja/Desktop/twitter-bootstrap-37d0a30/docs/assets/css/bootstrap-responsive.css" rel="stylesheet">-->
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../assets/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons --><!--
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="file:///C|/Users/Ljilja/Desktop/twitter-bootstrap-37d0a30/docs/assets/ico/apple-touch-icon-144-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="file:///C|/Users/Ljilja/Desktop/twitter-bootstrap-37d0a30/docs/assets/ico/apple-touch-icon-114-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="file:///C|/Users/Ljilja/Desktop/twitter-bootstrap-37d0a30/docs/assets/ico/apple-touch-icon-72-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" href="file:///C|/Users/Ljilja/Desktop/twitter-bootstrap-37d0a30/docs/assets/ico/apple-touch-icon-57-precomposed.png">
+	<link rel="shortcut icon" href="file:///C|/Users/Ljilja/Desktop/twitter-bootstrap-37d0a30/docs/assets/ico/favicon.png">-->
+  </head>
+
+  <body>
+  <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="#">Charts: Blood Pressure Monitoring</a>
+          <div class="nav-collapse collapse">
+            <p class="navbar-text pull-right">
+              Logged in as <a href="#" class="navbar-link">Doctor</a>
+            </p>
+          </div><!--/.nav-collapse -->
+
+        </div>
+      </div>
+    </div> 
+
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">John Doe</li>
+              <li class="nav-header">JD987654321</li>
+              <li class="nav-header">M - 01/19/1950</li>
+              <li class="active"><a href="#"></a></li>
+              <p> <a href="#"></p>
+             
+            </ul></div><!--/.well -->
+  </div><!--/span-->
+  <div class="span9">
+          <div> 
+            <!--<p><a href="#">SYS. mmHg</a></p>-->
+			<div id="sysChart" style="width: 1200px; height: 300px;"></div> <br/>
+			
+			
+            <p>&nbsp;</p>
+          </div>
+          <div > 
+            <div id="diaChart" style="width: 1200px; height: 300px;"></div> <br/>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+          </div>
+          <div> 
+            <div id="pulseChart" style="width: 1200px; height: 300px;"></div> 
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+          </div>
+          <div class="row-fluid">
+            <div class="span4">
+             
+            </div><!--/span-->
+           <div class="span4">
+              
+            </div><!--/span-->
+          <div class="span4">
+              
+            </div><!--/span-->
+         </div><!--/row--><!--/row-->
+        </div><!--/span-->
+    </div><!--/row-->
+
+    <hr>
+
+      <footer>
+        <p>&copy; RPM</p>
+      </footer>
+
+    </div><!--/.fluid-container--> 
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	<!--
+    <script src="file:///C|/Users/Ljilja/Desktop/twitter-bootstrap-37d0a30/docs/assets/js/jquery.js"></script>
+    <script src="file:///C|/Users/Ljilja/Desktop/twitter-bootstrap-37d0a30/docs/assets/js/bootstrap-transition.js"></script>
+    <script src="file:///C|/Users/Ljilja/Desktop/twitter-bootstrap-37d0a30/docs/assets/js/bootstrap-alert.js"></script>
+    <script src="file:///C|/Users/Ljilja/Desktop/twitter-bootstrap-37d0a30/docs/assets/js/bootstrap-modal.js"></script>
+    <script src="file:///C|/Users/Ljilja/Desktop/twitter-bootstrap-37d0a30/docs/assets/js/bootstrap-dropdown.js"></script>
+    <script src="file:///C|/Users/Ljilja/Desktop/twitter-bootstrap-37d0a30/docs/assets/js/bootstrap-scrollspy.js"></script>
+    <script src="file:///C|/Users/Ljilja/Desktop/twitter-bootstrap-37d0a30/docs/assets/js/bootstrap-tab.js"></script>
+    <script src="file:///C|/Users/Ljilja/Desktop/twitter-bootstrap-37d0a30/docs/assets/js/bootstrap-tooltip.js"></script>
+    <script src="file:///C|/Users/Ljilja/Desktop/twitter-bootstrap-37d0a30/docs/assets/js/bootstrap-popover.js"></script>
+    <script src="file:///C|/Users/Ljilja/Desktop/twitter-bootstrap-37d0a30/docs/assets/js/bootstrap-button.js"></script>
+    <script src="file:///C|/Users/Ljilja/Desktop/twitter-bootstrap-37d0a30/docs/assets/js/bootstrap-collapse.js"></script>
+    <script src="file:///C|/Users/Ljilja/Desktop/twitter-bootstrap-37d0a30/docs/assets/js/bootstrap-carousel.js"></script>
+    <script src="file:///C|/Users/Ljilja/Desktop/twitter-bootstrap-37d0a30/docs/assets/js/bootstrap-typeahead.js"></script>-->
+
+  </body>
+</html>

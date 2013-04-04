@@ -65,8 +65,8 @@ def fetch_bp_data(request, limit=None):
             print e
     return HttpResponse("error")
             
-#def home(request):
-#    return render_to_response('login_signup.html')
+def home(request):
+    return render_to_response('fluid.html')
 #
 #def login(request):
 #    if request.method == 'GET':
