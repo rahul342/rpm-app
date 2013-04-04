@@ -42,6 +42,6 @@ for date_delta in range((to_date - from_date).days):
         elif poss == 2:
             bp_entry.sys = random.randrange(140, 155)
             bp_entry.dia = random.randrange(90, 105)
-            bp_entry.sys = random.randrange(95, 110)
+            bp_entry.pul = random.randrange(95, 110)
         bp_entry.save()
     print cur_date
