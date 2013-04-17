@@ -37,7 +37,7 @@
 		});
 		function drawCharts() {
 			var parseDate = d3.time.format("%m-%d-%Y").parse;
-			$.getJSON("/fetch_bp_data/?email=mailrhl%40gmail.com", function(data){
+			$.getJSON("/fetch_bp_data/?email={{email|urlencode}}", function(data){
 				// Create the data table.
 				var sys_data_table = new google.visualization.DataTable();
 				var dia_data_table = new google.visualization.DataTable();

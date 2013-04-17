@@ -66,7 +66,11 @@ def fetch_bp_data(request, limit=None):
     return HttpResponse("error")
             
 def home(request):
-    return render_to_response('fluid.html')
+    if 'email' in request.GET:
+        email = request.GET['email']
+    else:
+        email = 'mailrhl@gmail.com'
+    return render_to_response('fluid.html', dict(email=email))
 #
 #def login(request):
 #    if request.method == 'GET':
